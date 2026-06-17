@@ -1,0 +1,71 @@
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            # 1. MS-COMENTARIOS (Puerto actualizado a 8090)
+            - id: ms-comentarios
+              uri: http://localhost:8090
+              predicates:
+                - Path=/comentarios/**
+
+            # 2. MS-PROPIEDADES
+            - id: ms-propiedades
+              uri: http://localhost:8081
+              predicates:
+                - Path=/propiedades/**
+
+            # 3. MS-ANFITRIONES
+            - id: ms-anfitriones
+              uri: http://localhost:8082
+              predicates:
+                - Path=/anfitriones/**
+
+            # 4. MS-INQUILINOS (Soporta /inquilinos/** incluyendo versiones como V1 y V2)
+            - id: ms-inquilinos
+              uri: http://localhost:8083
+              predicates:
+                - Path=/inquilinos/**
+
+            # 5. MS-RESERVAS
+            - id: ms-reservas
+              uri: http://localhost:8084
+              predicates:
+                - Path=/reservas/**
+
+            # 6. MS-PAGOS
+            - id: ms-pagos
+              uri: http://localhost:8085
+              predicates:
+                - Path=/pagos/**
+
+            # 7. MS-LIMPIEZA
+            - id: ms-limpieza
+              uri: http://localhost:8086
+              predicates:
+                - Path=/limpieza/**
+
+            # 8. MS-MENSAJERIA
+            - id: ms-mensajeria
+              uri: http://localhost:8087
+              predicates:
+                - Path=/mensajeria/**
+
+            # 9. MS-PRECIOS
+            - id: ms-precios
+              uri: http://localhost:8088
+              predicates:
+                - Path=/precios/**
+
+            # 10. MS-SEGUROS
+            - id: ms-seguros
+              uri: http://localhost:8089
+              predicates:
+                - Path=/seguros/**
+
+server:
+  port: 8080
