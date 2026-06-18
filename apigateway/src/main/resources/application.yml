@@ -197,5 +197,32 @@ spring:
                 - AddRequestHeader=X-Forwarded-Port, 8090
                 - AddRequestHeader=X-Forwarded-Proto, http
 
+# =========================================================
+# AGREGADOR DE SWAGGER (un solo punto de entrada con dropdown)
+# =========================================================
+springdoc:
+  swagger-ui:
+    urls:
+      - name: Comentarios
+        url: /comentarios/v3/api-docs
+      - name: Propiedades
+        url: /propiedades/v3/api-docs
+      - name: Anfitriones
+        url: /anfitriones/v3/api-docs
+      - name: Inquilinos
+        url: /inquilinos/v3/api-docs
+      - name: Reservas
+        url: /reservas/v3/api-docs
+      - name: Pagos
+        url: /pagos/v3/api-docs
+      - name: Limpieza
+        url: /limpieza/v3/api-docs
+      - name: Mensajeria
+        url: /mensajeria/v3/api-docs
+      - name: Precios
+        url: /precios/v3/api-docs
+      - name: Seguros
+        url: /seguros/v3/api-docs
+
 server:
   port: 8090
