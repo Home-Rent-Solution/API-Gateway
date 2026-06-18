@@ -1,19 +1,32 @@
 spring:
   application:
     name: api-gateway
-
   cloud:
     gateway:
+      # === CONFIGURACIÓN DE CORS GLOBAL ===
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders: "*"
       server:
         webflux:
           routes:
             # =========================================================
-            # 1. MS-COMENTARIOS (Antes puerto 8080 fijo)
+            # 1. MS-COMENTARIOS
             # =========================================================
             - id: ms-comentarios
               uri: lb://ms-comentarios
               predicates:
                 - Path=/api/v1/comentarios/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-comentarios-docs
               uri: lb://ms-comentarios
@@ -23,16 +36,16 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /comentarios
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
             # =========================================================
-            # 2. MS-PROPIEDADES (Antes puerto 8081 fijo)
+            # 2. MS-PROPIEDADES
             # =========================================================
             - id: ms-propiedades
               uri: lb://ms-propiedades
               predicates:
                 - Path=/api/v1/propiedades/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-propiedades-docs
               uri: lb://ms-propiedades
@@ -42,16 +55,16 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /propiedades
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
             # =========================================================
-            # 3. MS-ANFITRIONES (Antes puerto 8082 fijo)
+            # 3. MS-ANFITRIONES
             # =========================================================
             - id: ms-anfitriones
               uri: lb://ms-anfitriones
               predicates:
                 - Path=/api/v1/anfitriones/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-anfitriones-docs
               uri: lb://ms-anfitriones
@@ -61,16 +74,16 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /anfitriones
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
             # =========================================================
-            # 4. MS-INQUILINOS (Antes puerto 8083 fijo)
+            # 4. MS-INQUILINOS
             # =========================================================
             - id: ms-inquilinos
               uri: lb://ms-inquilinos
               predicates:
                 - Path=/api/v1/inquilinos/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-inquilinos-docs
               uri: lb://ms-inquilinos
@@ -80,16 +93,16 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /inquilinos
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
             # =========================================================
-            # 5. MS-RESERVAS (Antes puerto 8084 fijo)
+            # 5. MS-RESERVAS
             # =========================================================
             - id: ms-reservas
               uri: lb://ms-reservas
               predicates:
                 - Path=/api/v1/reservas/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-reservas-docs
               uri: lb://ms-reservas
@@ -99,16 +112,16 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /reservas
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
             # =========================================================
-            # 6. MS-PAGOS (Antes puerto 8085 fijo)
+            # 6. MS-PAGOS
             # =========================================================
             - id: ms-pagos
               uri: lb://ms-pagos
               predicates:
                 - Path=/api/v1/pagos/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-pagos-docs
               uri: lb://ms-pagos
@@ -118,16 +131,16 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /pagos
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
             # =========================================================
-            # 7. MS-LIMPIEZA (Antes puerto 8086 fijo)
+            # 7. MS-LIMPIEZA
             # =========================================================
             - id: ms-limpieza
               uri: lb://ms-limpieza
               predicates:
                 - Path=/api/v1/limpieza/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-limpieza-docs
               uri: lb://ms-limpieza
@@ -137,16 +150,16 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /limpieza
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
             # =========================================================
-            # 8. MS-MENSAJERIA (Antes puerto 8087 fijo)
+            # 8. MS-MENSAJERIA
             # =========================================================
             - id: ms-mensajeria
               uri: lb://ms-mensajeria
               predicates:
                 - Path=/api/v1/mensajeria/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-mensajeria-docs
               uri: lb://ms-mensajeria
@@ -156,16 +169,16 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /mensajeria
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
             # =========================================================
-            # 9. MS-PRECIOS (Antes puerto 8088 fijo)
+            # 9. MS-PRECIOS
             # =========================================================
             - id: ms-precios
               uri: lb://ms-precios
               predicates:
                 - Path=/api/v1/precios/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-precios-docs
               uri: lb://ms-precios
@@ -175,16 +188,16 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /precios
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
             # =========================================================
-            # 10. MS-SEGUROS (Antes puerto 8089 fijo)
+            # 10. MS-SEGUROS
             # =========================================================
             - id: ms-seguros
               uri: lb://ms-seguros
               predicates:
                 - Path=/api/v1/seguros/**
+              filters:
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
 
             - id: ms-seguros-docs
               uri: lb://ms-seguros
@@ -194,11 +207,9 @@ spring:
                 - StripPrefix=1
                 - AddRequestHeader=X-Forwarded-Prefix, /seguros
                 - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
 
 # =========================================================
-# AGREGADOR DE SWAGGER (Se mantiene exactamente igual)
+# AGREGADOR DE SWAGGER
 # =========================================================
 springdoc:
   swagger-ui:
@@ -225,7 +236,7 @@ springdoc:
         url: /seguros/v3/api-docs
 
 # =========================================================
-# CONEXIÓN DEL GATEWAY CON EUREKA
+# CONEXIÓN CON EUREKA
 # =========================================================
 eureka:
   client:
