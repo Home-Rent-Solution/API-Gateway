@@ -7,65 +7,195 @@ spring:
       server:
         webflux:
           routes:
-            # 1. MS-COMENTARIOS (Puerto actualizado a 8090)
+            # =========================================================
+            # 1. MS-COMENTARIOS (Puerto 8080)
+            # =========================================================
             - id: ms-comentarios
               uri: http://localhost:8080
               predicates:
                 - Path=/api/v1/comentarios/**
 
-            # 2. MS-PROPIEDADES
+            - id: ms-comentarios-docs
+              uri: http://localhost:8080
+              predicates:
+                - Path=/comentarios/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /comentarios
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
+
+            # =========================================================
+            # 2. MS-PROPIEDADES (Puerto 8081)
+            # =========================================================
             - id: ms-propiedades
               uri: http://localhost:8081
               predicates:
                 - Path=/api/v1/propiedades/**
 
-            # 3. MS-ANFITRIONES
+            - id: ms-propiedades-docs
+              uri: http://localhost:8081
+              predicates:
+                - Path=/propiedades/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /propiedades
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
+
+            # =========================================================
+            # 3. MS-ANFITRIONES (Puerto 8082)
+            # =========================================================
             - id: ms-anfitriones
               uri: http://localhost:8082
               predicates:
                 - Path=/api/v1/anfitriones/**
 
-            # 4. MS-INQUILINOS (Soporta /inquilinos/** incluyendo versiones como V1 y V2)
+            - id: ms-anfitriones-docs
+              uri: http://localhost:8082
+              predicates:
+                - Path=/anfitriones/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /anfitriones
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
+
+            # =========================================================
+            # 4. MS-INQUILINOS (Puerto 8083)
+            # =========================================================
             - id: ms-inquilinos
               uri: http://localhost:8083
               predicates:
                 - Path=/api/v1/inquilinos/**
 
-            # 5. MS-RESERVAS
+            - id: ms-inquilinos-docs
+              uri: http://localhost:8083
+              predicates:
+                - Path=/inquilinos/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /inquilinos
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
+
+            # =========================================================
+            # 5. MS-RESERVAS (Puerto 8084)
+            # =========================================================
             - id: ms-reservas
               uri: http://localhost:8084
               predicates:
                 - Path=/api/v1/reservas/**
 
-            # 6. MS-PAGOS
+            - id: ms-reservas-docs
+              uri: http://localhost:8084
+              predicates:
+                - Path=/reservas/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /reservas
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
+
+            # =========================================================
+            # 6. MS-PAGOS (Puerto 8085)
+            # =========================================================
             - id: ms-pagos
               uri: http://localhost:8085
               predicates:
                 - Path=/api/v1/pagos/**
 
-            # 7. MS-LIMPIEZA
+            - id: ms-pagos-docs
+              uri: http://localhost:8085
+              predicates:
+                - Path=/pagos/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /pagos
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
+
+            # =========================================================
+            # 7. MS-LIMPIEZA (Puerto 8086)
+            # =========================================================
             - id: ms-limpieza
               uri: http://localhost:8086
               predicates:
                 - Path=/api/v1/limpieza/**
 
-            # 8. MS-MENSAJERIA
+            - id: ms-limpieza-docs
+              uri: http://localhost:8086
+              predicates:
+                - Path=/limpieza/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /limpieza
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
+
+            # =========================================================
+            # 8. MS-MENSAJERIA (Puerto 8087)
+            # =========================================================
             - id: ms-mensajeria
               uri: http://localhost:8087
               predicates:
                 - Path=/api/v1/mensajeria/**
 
-            # 9. MS-PRECIOS
+            - id: ms-mensajeria-docs
+              uri: http://localhost:8087
+              predicates:
+                - Path=/mensajeria/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /mensajeria
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
+
+            # =========================================================
+            # 9. MS-PRECIOS (Puerto 8088)
+            # =========================================================
             - id: ms-precios
               uri: http://localhost:8088
               predicates:
                 - Path=/api/v1/precios/**
 
-            # 10. MS-SEGUROS
+            - id: ms-precios-docs
+              uri: http://localhost:8088
+              predicates:
+                - Path=/precios/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /precios
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
+
+            # =========================================================
+            # 10. MS-SEGUROS (Puerto 8089)
+            # =========================================================
             - id: ms-seguros
               uri: http://localhost:8089
               predicates:
                 - Path=/api/v1/seguros/**
+
+            - id: ms-seguros-docs
+              uri: http://localhost:8089
+              predicates:
+                - Path=/seguros/**
+              filters:
+                - StripPrefix=1
+                - AddRequestHeader=X-Forwarded-Prefix, /seguros
+                - AddRequestHeader=X-Forwarded-Host, localhost:8090
+                - AddRequestHeader=X-Forwarded-Port, 8090
+                - AddRequestHeader=X-Forwarded-Proto, http
 
 server:
   port: 8090
