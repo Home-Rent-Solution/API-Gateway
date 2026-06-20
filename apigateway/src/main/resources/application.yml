@@ -3,11 +3,7 @@ spring:
     name: api-gateway
   cloud:
     gateway:
-      # === CORRECCIÓN: desactiva el filtro automático que sobreescribe
-      # los headers X-Forwarded-* que agregamos manualmente en cada ruta.
-      # Sin esto, al usar lb://, Spring Cloud Gateway genera sus propios
-      # X-Forwarded-* basados en la IP/host real resuelta por Eureka,
-      # pisando los valores que necesitamos (localhost:8090).
+
       x-forwarded:
         host-enabled: false
         port-enabled: false
