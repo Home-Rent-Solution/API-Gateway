@@ -146,7 +146,7 @@ spring:
             - id: ms-limpieza
               uri: lb://ms-limpieza
               predicates:
-                - Path=/api/v1/limpieza/**
+                - Path=/api/v1/limpiezas/**,/api/v2/limpiezas/**
 
             - id: ms-limpieza-docs
               uri: lb://ms-limpieza
@@ -165,7 +165,7 @@ spring:
             - id: ms-mensajeria
               uri: lb://ms-mensajeria
               predicates:
-                - Path=/api/v1/mensajeria/**
+                - Path=/api/v1/mensajes/**
 
             - id: ms-mensajeria-docs
               uri: lb://ms-mensajeria
@@ -203,7 +203,7 @@ spring:
             - id: ms-seguros
               uri: lb://ms-seguros
               predicates:
-                - Path=/api/v1/seguros/**
+                - Path=/api/v1/seguros/**,/api/v2/seguros/**
 
             - id: ms-seguros-docs
               uri: lb://ms-seguros
