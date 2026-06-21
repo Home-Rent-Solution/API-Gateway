@@ -127,7 +127,7 @@ spring:
             - id: ms-pagos
               uri: lb://ms-pagos
               predicates:
-                - Path=/api/v1/pagos/**
+                - Path=/api/v1/pagos/**,/api/v2/pagos/**
 
             - id: ms-pagos-docs
               uri: lb://ms-pagos
