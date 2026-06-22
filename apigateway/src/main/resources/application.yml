@@ -23,198 +23,198 @@ spring:
               - DELETE
               - OPTIONS
             allowedHeaders: "*"
-      server:
-        webflux:
-          routes:
-            # =========================================================
-            # 1. MS-COMENTARIOS
-            # =========================================================
-            - id: ms-comentarios
-              uri: lb://ms-comentarios
-              predicates:
-                - Path=/api/v1/comentarios/**
 
-            - id: ms-comentarios-docs
-              uri: lb://ms-comentarios
-              predicates:
-                - Path=/comentarios/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /comentarios
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+      # === RUTAS DE LOS MICROSERVICIOS ===
+      routes:
+        # =========================================================
+        # 1. MS-COMENTARIOS
+        # =========================================================
+        - id: ms-comentarios
+          uri: lb://ms-comentarios
+          predicates:
+            - Path=/api/v1/comentarios/**
 
-            # =========================================================
-            # 2. MS-PROPIEDADES
-            # =========================================================
-            - id: ms-propiedades
-              uri: lb://ms-propiedades
-              predicates:
-                - Path=/api/v1/propiedades/**
+        - id: ms-comentarios-docs
+          uri: lb://ms-comentarios
+          predicates:
+            - Path=/comentarios/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /comentarios
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
-            - id: ms-propiedades-docs
-              uri: lb://ms-propiedades
-              predicates:
-                - Path=/propiedades/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /propiedades
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+        # =========================================================
+        # 2. MS-PROPIEDADES
+        # =========================================================
+        - id: ms-propiedades
+          uri: lb://ms-propiedades
+          predicates:
+            - Path=/api/v1/propiedades/**
 
-            # =========================================================
-            # 3. MS-ANFITRIONES
-            # =========================================================
-            - id: ms-anfitriones
-              uri: lb://ms-anfitriones
-              predicates:
-                - Path=/api/v1/anfitriones/**
+        - id: ms-propiedades-docs
+          uri: lb://ms-propiedades
+          predicates:
+            - Path=/propiedades/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /propiedades
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
-            - id: ms-anfitriones-docs
-              uri: lb://ms-anfitriones
-              predicates:
-                - Path=/anfitriones/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /anfitriones
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+        # =========================================================
+        # 3. MS-ANFITRIONES
+        # =========================================================
+        - id: ms-anfitriones
+          uri: lb://ms-anfitriones
+          predicates:
+            - Path=/api/v1/anfitriones/**
 
-            # =========================================================
-            # 4. MS-INQUILINOS
-            # =========================================================
-            - id: ms-inquilinos
-              uri: lb://ms-inquilinos
-              predicates:
-                - Path=/api/v1/inquilinos/**
+        - id: ms-anfitriones-docs
+          uri: lb://ms-anfitriones
+          predicates:
+            - Path=/anfitriones/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /anfitriones
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
-            - id: ms-inquilinos-docs
-              uri: lb://ms-inquilinos
-              predicates:
-                - Path=/inquilinos/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /inquilinos
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+        # =========================================================
+        # 4. MS-INQUILINOS
+        # =========================================================
+        - id: ms-inquilinos
+          uri: lb://ms-inquilinos
+          predicates:
+            - Path=/api/v1/inquilinos/**
 
-            # =========================================================
-            # 5. MS-RESERVAS
-            # =========================================================
-            - id: ms-reservas
-              uri: lb://ms-reservas
-              predicates:
-                - Path=/api/v1/reservas/**
+        - id: ms-inquilinos-docs
+          uri: lb://ms-inquilinos
+          predicates:
+            - Path=/inquilinos/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /inquilinos
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
-            - id: ms-reservas-docs
-              uri: lb://ms-reservas
-              predicates:
-                - Path=/reservas/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /reservas
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+        # =========================================================
+        # 5. MS-RESERVAS
+        # =========================================================
+        - id: ms-reservas
+          uri: lb://ms-reservas
+          predicates:
+            - Path=/api/v1/reservas/**
 
-            # =========================================================
-            # 6. MS-PAGOS
-            # =========================================================
-            - id: ms-pagos
-              uri: lb://ms-pagos
-              predicates:
-                - Path=/api/v1/pagos/**,/api/v2/pagos/**
+        - id: ms-reservas-docs
+          uri: lb://ms-reservas
+          predicates:
+            - Path=/reservas/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /reservas
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
-            - id: ms-pagos-docs
-              uri: lb://ms-pagos
-              predicates:
-                - Path=/pagos/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /pagos
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+        # =========================================================
+        # 6. MS-PAGOS
+        # =========================================================
+        - id: ms-pagos
+          uri: lb://ms-pagos
+          predicates:
+            - Path=/api/v1/pagos/**,/api/v2/pagos/**
 
-            # =========================================================
-            # 7. MS-LIMPIEZA
-            # =========================================================
-            - id: ms-limpieza
-              uri: lb://ms-limpieza
-              predicates:
-                - Path=/api/v1/limpiezas/**,/api/v2/limpiezas/**
+        - id: ms-pagos-docs
+          uri: lb://ms-pagos
+          predicates:
+            - Path=/pagos/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /pagos
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
-            - id: ms-limpieza-docs
-              uri: lb://ms-limpieza
-              predicates:
-                - Path=/limpieza/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /limpieza
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+        # =========================================================
+        # 7. MS-LIMPIEZA
+        # =========================================================
+        - id: ms-limpieza
+          uri: lb://ms-limpieza
+          predicates:
+            - Path=/api/v1/limpiezas/**,/api/v2/limpiezas/**
 
-            # =========================================================
-            # 8. MS-MENSAJERIA
-            # =========================================================
-            - id: ms-mensajeria
-              uri: lb://ms-mensajeria
-              predicates:
-                - Path=/api/v1/mensajes/**
+        - id: ms-limpieza-docs
+          uri: lb://ms-limpieza
+          predicates:
+            - Path=/limpieza/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /limpieza
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
-            - id: ms-mensajeria-docs
-              uri: lb://ms-mensajeria
-              predicates:
-                - Path=/mensajeria/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /mensajeria
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+        # =========================================================
+        # 8. MS-MENSAJERIA
+        # =========================================================
+        - id: ms-mensajeria
+          uri: lb://ms-mensajeria
+          predicates:
+            - Path=/api/v1/mensajes/**
 
-            # =========================================================
-            # 9. MS-PRECIOS
-            # =========================================================
-            - id: ms-precios
-              uri: lb://ms-precios
-              predicates:
-                - Path=/api/v1/precios/**
+        - id: ms-mensajeria-docs
+          uri: lb://ms-mensajeria
+          predicates:
+            - Path=/mensajeria/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /mensajeria
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
-            - id: ms-precios-docs
-              uri: lb://ms-precios
-              predicates:
-                - Path=/precios/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /precios
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+        # =========================================================
+        # 9. MS-PRECIOS
+        # =========================================================
+        - id: ms-precios
+          uri: lb://ms-precios
+          predicates:
+            - Path=/api/v1/precios/**
 
-            # =========================================================
-            # 10. MS-SEGUROS
-            # =========================================================
-            - id: ms-seguros
-              uri: lb://ms-seguros
-              predicates:
-                - Path=/api/v1/seguros/**,/api/v2/seguros/**
+        - id: ms-precios-docs
+          uri: lb://ms-precios
+          predicates:
+            - Path=/precios/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /precios
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
-            - id: ms-seguros-docs
-              uri: lb://ms-seguros
-              predicates:
-                - Path=/seguros/**
-              filters:
-                - StripPrefix=1
-                - AddRequestHeader=X-Forwarded-Prefix, /seguros
-                - AddRequestHeader=X-Forwarded-Host, localhost:8090
-                - AddRequestHeader=X-Forwarded-Port, 8090
-                - AddRequestHeader=X-Forwarded-Proto, http
+        # =========================================================
+        # 10. MS-SEGUROS
+        # =========================================================
+        - id: ms-seguros
+          uri: lb://ms-seguros
+          predicates:
+            - Path=/api/v1/seguros/**,/api/v2/seguros/**
+
+        - id: ms-seguros-docs
+          uri: lb://ms-seguros
+          predicates:
+            - Path=/seguros/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /seguros
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
 
 # =========================================================
 # AGREGADOR DE SWAGGER
