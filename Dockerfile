@@ -1,7 +1,7 @@
 FROM maven:3.9.11-eclipse-temurin-25 AS build
 WORKDIR /workspace
 COPY . .
-RUN --mount=type=cache,target=/root/.m2 ./mvnw clean package -DskipTests
+RUN --mount=type=cache,target=/root/.m2 mvn -B -DskipTests clean package
 
 FROM eclipse-temurin:25-jre
 WORKDIR /app
