@@ -32,6 +32,10 @@ public class FiltroJwt implements GlobalFilter, Ordered {
             "/comentarios", "/propiedades", "/anfitriones", "/inquilinos", "/reservas", "/pagos",
             "/limpieza", "/mensajeria", "/precios", "/seguros", "/usuarios");
 
+    // cabeceras con los datos del token que el Gateway envía a los microservicios
+    public static final String CABECERA_CORREO = "X-Usuario-Correo";
+    public static final String CABECERA_ROL = "X-Usuario-Rol";
+
     private final SecretKey clave;
 
     // el mismo secreto que usa MS-Usuarios para firmar los tokens
@@ -44,8 +48,17 @@ public class FiltroJwt implements GlobalFilter, Ordered {
         HttpMethod metodo = exchange.getRequest().getMethod();
         String ruta = rutaReal(exchange.getRequest().getURI().getPath());
 
+        // estas cabeceras solo las pone el Gateway: si llegan desde afuera se borran,
+        // así nadie puede hacerse pasar por otro usuario
+        ServerWebExchange limpio = exchange.mutate()
+                .request(peticion -> peticion.headers(cabeceras -> {
+                    cabeceras.remove(CABECERA_CORREO);
+                    cabeceras.remove(CABECERA_ROL);
+                }))
+                .build();
+
         if (esPublica(metodo, ruta)) {
-            return chain.filter(exchange);
+            return chain.filter(limpio);
         }
 
         String cabecera = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
@@ -72,7 +85,14 @@ public class FiltroJwt implements GlobalFilter, Ordered {
             return responder(exchange, HttpStatus.FORBIDDEN, "Tu rol no tiene permiso para esta acción");
         }
 
-        return chain.filter(exchange);
+        // el microservicio recibe quién hace la petición (por ejemplo, MS-Reservas lo usa
+        // para que un inquilino reserve y vea solo a su nombre)
+        ServerWebExchange conUsuario = limpio.mutate()
+                .request(peticion -> peticion
+                        .header(CABECERA_CORREO, claims.getSubject())
+                        .header(CABECERA_ROL, rol))
+                .build();
+        return chain.filter(conUsuario);
     }
 
     // Lo que se puede usar sin iniciar sesión
