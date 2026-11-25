@@ -216,6 +216,25 @@ spring:
             - AddRequestHeader=X-Forwarded-Port, 8090
             - AddRequestHeader=X-Forwarded-Proto, http
 
+        # =========================================================
+        # 11. MS-USUARIOS
+        # =========================================================
+        - id: ms-usuarios
+          uri: lb://ms-usuarios
+          predicates:
+            - Path=/api/v1/auth/**,/api/v1/usuarios/**
+
+        - id: ms-usuarios-docs
+          uri: lb://ms-usuarios
+          predicates:
+            - Path=/usuarios/**
+          filters:
+            - StripPrefix=1
+            - AddRequestHeader=X-Forwarded-Prefix, /usuarios
+            - AddRequestHeader=X-Forwarded-Host, localhost:8090
+            - AddRequestHeader=X-Forwarded-Port, 8090
+            - AddRequestHeader=X-Forwarded-Proto, http
+
 # =========================================================
 # AGREGADOR DE SWAGGER
 # =========================================================
@@ -242,6 +261,8 @@ springdoc:
         url: /precios/v3/api-docs
       - name: Seguros
         url: /seguros/v3/api-docs
+      - name: Usuarios
+        url: /usuarios/v3/api-docs
 
 # =========================================================
 # CONEXIÓN CON EUREKA
@@ -253,3 +274,9 @@ eureka:
 
 server:
   port: 8090
+
+# =========================================================
+# JWT: el mismo secreto que usa MS-Usuarios para firmar los tokens
+# =========================================================
+jwt:
+  secreto: ${JWT_SECRETO:home-rent-solution-secreto-de-desarrollo-cambiar-en-produccion}
