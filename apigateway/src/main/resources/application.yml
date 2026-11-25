@@ -2,7 +2,7 @@ spring:
   application:
     name: api-gateway
   cloud:
-    gateway:
+    gateway.server.webflux:
 
       x-forwarded:
         host-enabled: false
@@ -15,7 +15,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "*"
+            allowedOrigins: "http://localhost:5173"
             allowedMethods:
               - GET
               - POST
