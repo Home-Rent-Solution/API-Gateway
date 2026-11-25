@@ -110,6 +110,9 @@ public class FiltroJwt implements GlobalFilter, Ordered {
         if (HttpMethod.GET.equals(metodo) && ruta.startsWith("/api/v1/propiedades")) {
             return true; // el catálogo lo ve cualquier visitante
         }
+        if (HttpMethod.POST.equals(metodo) && ruta.equals("/api/v1/contacto")) {
+            return true; // cualquier visitante puede escribir por el formulario de contacto
+        }
         return HttpMethod.POST.equals(metodo) && ruta.equals("/api/v1/precios/calcular");
     }
 

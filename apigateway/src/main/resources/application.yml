@@ -165,7 +165,7 @@ spring:
         - id: ms-mensajeria
           uri: lb://ms-mensajeria
           predicates:
-            - Path=/api/v1/mensajes/**
+            - Path=/api/v1/mensajes/**,/api/v1/contacto/**
 
         - id: ms-mensajeria-docs
           uri: lb://ms-mensajeria
